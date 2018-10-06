@@ -3,3 +3,4 @@
 .junk/
 *.pyc
 *.egg-info/
+dist/
