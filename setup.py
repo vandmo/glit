@@ -9,7 +9,7 @@ setup(
     url='https://github.com/vandmo/plit',
     license='Apache License 2.0',
     author='vandmo',
-    description='Clines sets of git repositories',
+    description='Clones sets of git repositories',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -21,7 +21,7 @@ setup(
         plit=plit.cli:cli
     ''',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha'
+        'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
