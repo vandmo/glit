@@ -5,6 +5,7 @@ python:
 install:
   - pip install flake8
 script: flake8 .
+before_deploy: "echo ${TRAVIS_TAG} > VERSION"
 deploy:
   provider: pypi
   user: vandmo
