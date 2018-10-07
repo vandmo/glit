@@ -8,8 +8,9 @@ script: flake8 .
 before_deploy: "echo ${TRAVIS_TAG} > VERSION"
 deploy:
   provider: pypi
-  user: vandmo
+  skip_cleanup: true
   on:
     tags: true
+  user: vandmo
   password:
     secure: "iR2dVXSkDb2ijEbcCo2ISmpc4xqxaB8qV/tPj9YQ1PK0IzSbPo/DIlHU+ZVX24w2Ih3hwhb/eKVeb8mn4SZ8qt+nz6DMZFx/edl9AN2Vg91w6i6S6yCJ3BnbLTnjlFxjNcyvtRoX9ok87I6oQtsJEPDKF5N2WvFy984l4Q7MUvRgfg8foyEMooueNnc812G0zFCWwDXvKxN8P1zMhl87qzD3oFhGNn7p28f6DUEXYcWbnx8xEjvfBUj56DqZ0nR7EW1rIIukbu7Dxr3bQzyDatJLDHQhDFe8LWJAJubVEFLEhfe+bqgEjTXr1TN9WW8WE4Wkp1E9tv7ny4jwnildmZdMQJ6bpdNcAcZ1EG+Aq/ImmP7UCKDAmvRKUKMxDrs54hEFOGjTcNvsWfRhF7p53rsPbikHRtLI0hTyCw0FYeScHzYXiPi8tq3ooaiTjbJSgQXnMbjXDFp4L4vIR1LlVTnJsY6SCo3Rafk91HfQOpYZKQU5kjsbFR5q9SmgKhPIrvrdWh33E6JYRe5JHVEgFzD576P7lYe3Xq7yZ1MIQkO/46BaC+L7W1TNeWckvLXQozzGTcYtCvqJMCr8FZnC8+qDIyRZ3JBpnOGTSoxtQ/1xvzpznuyJI7JG6dEmWmcdokNx2Wyy6zhZSwcFX+tvxIrhRPL1OCrp/ArRrMJ3v0M="
