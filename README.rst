@@ -5,6 +5,7 @@ Clones sets of git repositories.
 Example config
 --------------
 ~/.plit/config.yaml
+
 .. code-block:: yaml
   work-common:
     folder: ~/repos/work/
