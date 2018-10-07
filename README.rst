@@ -7,6 +7,7 @@ Example config
 ``~/.plit/config.yaml``
 
 .. code-block:: yaml
+
   work-common:
     folder: ~/repos/work/
     list: ~/work/common.list
