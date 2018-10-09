@@ -7,7 +7,7 @@ def msg(message):
 
 
 def warn(message):
-    click.echo(click.style('plit:', fg='yellow') + ' ' + message)
+    click.echo(click.style('plit[WARNING]:', fg='yellow') + ' ' + message)
 
 
 def errordie(message, code=-1):

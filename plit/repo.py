@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import os
 import subprocess
-from utils import errordie, msg
+from utils import errordie, msg, warn
 
 
 def _mkpath(path):
@@ -16,6 +16,9 @@ def _trim(lines):
 
 
 def _read_and_trim(filename):
+    if not os.path.isfile(filename):
+        warn('No such file {}'.format(filename))
+        return []
     with open(filename) as f:
         lines = f.readlines()
     return _trim(lines)
