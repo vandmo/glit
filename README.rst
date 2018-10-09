@@ -22,6 +22,14 @@ Example config
       folder: ~/repos/private/
       repositories: ~/somecool.repositories
 
+~/somecool.repositories
+***********************
+.. code-block::
+
+  . git@github.com:vandmo/plit.git
+  cool/libs https://github.com/pallets/click
+  cool/libs https://github.com/awslabs/cfn-python-lint.git
+
 Commands
 --------
 - ``plit clone-all``
