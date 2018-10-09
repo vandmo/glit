@@ -1,5 +1,5 @@
-from config import Config
 import click
+from config import Config
 
 
 @click.command(name='clone-all')

@@ -1,8 +1,9 @@
 import click
 
-import clone
-import clone_all
-import clone_set
+import clone_command
+import clone_all_command
+import clone_set_command
+import config_command
 
 
 @click.group()
@@ -11,6 +12,7 @@ def cli():
     pass
 
 
-cli.add_command(clone.command)
-cli.add_command(clone_all.command)
-cli.add_command(clone_set.command)
+cli.add_command(clone_command.command)
+cli.add_command(clone_all_command.command)
+cli.add_command(clone_set_command.command)
+cli.add_command(config_command.command)
