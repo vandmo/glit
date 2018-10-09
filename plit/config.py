@@ -20,3 +20,6 @@ class Config():
             if name == set_config['name']:
                 return _repo_set(set_config)
         return None
+
+    def get_all_sets(self):
+        return [_repo_set(set_config) for set_config in self._config['sets']]

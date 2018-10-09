@@ -1,3 +1,4 @@
+from config import Config
 import click
 
 
@@ -10,4 +11,6 @@ import click
 @click.option('--prefix')
 def command(repository, to_set, prefix):
     '''Clones a repository and adds it to a set'''
-    pass
+    config = Config()
+    theset = config.get_set(to_set)
+    theset.add_and_clone(repository=repository, prefix=prefix)
