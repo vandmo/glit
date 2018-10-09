@@ -77,7 +77,7 @@ class ReposFile():
         self._repositories.append(repo)
 
     def save(self):
-        lines = [repo.as_line() for repo in self._repositories]
+        lines = [repo.as_line()+'\n' for repo in self._repositories]
         with open(self._filename, 'w') as f:
             f.writelines(sorted(lines))
 
