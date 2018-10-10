@@ -20,6 +20,9 @@ class Config():
         self._filename = os.path.expanduser('~/.plit/config.yaml')
         self._config = load_yaml(self._filename)
 
+    def get_set_or_die(self, name):
+        return self.get_set(name) or errordie('No such set "{}"'.format(name))
+
     def get_set(self, name):
         set_config = self._set_config_for(name)
         if set_config:

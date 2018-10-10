@@ -7,5 +7,5 @@ import click
 def command(name):
     '''Clones a specific sets'''
     config = Config()
-    set_ = config.get_set(name)
+    set_ = config.get_set_or_die(name)
     set_.clone()

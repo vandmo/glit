@@ -12,5 +12,5 @@ import click
 def command(repository, to_set, prefix):
     '''Clones a repository and adds it to a set'''
     config = Config()
-    theset = config.get_set(to_set)
+    theset = config.get_set_or_die(to_set)
     theset.add_and_clone(repository=repository, prefix=prefix)
