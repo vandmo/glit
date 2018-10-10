@@ -64,6 +64,21 @@ class Repo():
         else:
             return '. {}'.format(self._repository)
 
+    def __eq__(self, other):
+        if isinstance(other, Repo):
+            return (
+                self._repository == other._repository
+                and
+                self._prefix == other._prefix
+            )
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __str__(self):
+        return self.as_line()
+
 
 class ReposFile():
     def __init__(self, filename):
@@ -77,6 +92,9 @@ class ReposFile():
             repo.clone(folder)
 
     def add(self, repo):
+        for existing in self._repositories:
+            if repo == existing:
+                errordie('Duplicate entry {}'.format(repo))
         self._repositories.append(repo)
 
     def save(self):
