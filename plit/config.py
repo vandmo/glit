@@ -18,7 +18,12 @@ def _repo_set(config):
 class Config():
     def __init__(self):
         self._filename = os.path.expanduser('~/.plit/config.yaml')
-        self._config = load_yaml(self._filename)
+        if os.path.isfile(self._filename):
+            self._config = load_yaml(self._filename)
+            if not self._config:
+                self._config = OrderedDict()
+        else:
+            self._config = OrderedDict()
 
     def get_set_or_die(self, name):
         return self.get_set(name) or errordie('No such set "{}"'.format(name))
@@ -30,13 +35,22 @@ class Config():
         return None
 
     def _set_config_for(self, name):
+        if 'sets' not in self._config:
+            return None
         for set_config in self._config['sets']:
             if name == set_config['name']:
                 return set_config
         return None
 
     def get_all_sets(self):
+        if 'sets' not in self._config:
+            return []
         return [_repo_set(set_config) for set_config in self._config['sets']]
+
+    def _sets_or_create(self):
+        if 'sets' not in self._config:
+            self._config['sets'] = list()
+        return self._config['sets']
 
     def add_set(self, repositories_file, folder, name=None):
         if not name:
@@ -49,5 +63,5 @@ class Config():
         entry['name'] = name
         entry['folder'] = folder
         entry['repositories'] = repositories_file
-        self._config['sets'].append(entry)
+        self._sets_or_create().append(entry)
         save_as_yaml(self._config, self._filename)
