@@ -4,7 +4,7 @@ Clones sets of git repositories.
 
 Example config
 --------------
-~/.plit/sets.cfg
+~/.plit/sets
 *******************
 .. code-block:: cfg
 
