@@ -1,5 +1,11 @@
 import click
+import os
 import sys
+
+
+def mkpath(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
 
 
 def msg(message):

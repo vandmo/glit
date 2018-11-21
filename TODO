@@ -1,0 +1,2 @@
+Implement purging of ~/.plit/cache/git/ so that it does not grow forever.
+Remote folders that are not referenced from ~/.plit/sets

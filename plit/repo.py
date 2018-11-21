@@ -1,13 +1,6 @@
-from __future__ import print_function
-
+import git
 import os
-import subprocess
-from utils import errordie, msg, warn
-
-
-def _mkpath(path):
-    if not os.path.exists(path):
-        os.makedirs(path)
+from utils import errordie, mkpath, msg
 
 
 def _trim(lines):
@@ -15,16 +8,15 @@ def _trim(lines):
     return [line for line in stripped if line and not line.startswith('#')]
 
 
-def _read_and_trim(filename):
-    if not os.path.isfile(filename):
-        warn('No such file {}'.format(filename))
-        return []
-    with open(filename) as f:
-        lines = f.readlines()
-    return _trim(lines)
+def _git_destname(repository):
+    git_folder = repository.rsplit('/', 1)[1]
+    if git_folder.endswith('.git'):
+        return git_folder[:-4]
+    else:
+        return git_folder
 
 
-class Repo():
+class Repo(object):
     def __init__(self, repository, prefix):
         self._repository = repository
         self._prefix = prefix
@@ -39,24 +31,31 @@ class Repo():
             errordie('Invalid repository file line: {}'.format(line))
         return cls(repository, prefix)
 
-    def clone(self, folder):
+    def _group_folder(self, folder):
         if self._prefix:
-            group_folder = os.path.join(folder, self._prefix)
+            return os.path.join(folder, self._prefix)
         else:
-            group_folder = folder
-        _mkpath(group_folder)
-        git_folder = self._repository.rsplit('/', 1)[1]
-        if git_folder.endswith('.git'):
-            git_folder = git_folder[:-4]
+            return folder
+
+    def clone(self, folder):
+        group_folder = self._group_folder(folder)
+        mkpath(group_folder)
+        git_folder = _git_destname(self._repository)
         destination = os.path.join(group_folder, git_folder)
         if os.path.exists(destination):
             msg('IN %s SKIPPING %s' % (self._prefix, git_folder))
             return
         msg('IN %s CLONING %s' % (self._prefix, git_folder))
-        args = ['git', 'clone', self._repository, destination]
-        status = subprocess.call(args)
-        if status:
-            errordie('git failed with {}'.format(status))
+        git.clone_or_die(self._repository, destination)
+
+    def fast_forward(self, folder):
+        group_folder = self._group_folder(folder)
+        git_folder = _git_destname(self._repository)
+        destination = os.path.join(group_folder, git_folder)
+        if not os.path.exists(destination):
+            errordie('Can\'t fast forward missing repository: {}'.format(destination))
+        msg('IN %s FAST FORWARDING %s' % (self._prefix, git_folder))
+        git.fast_forward_or_die(destination)
 
     def as_line(self):
         if self._prefix:
@@ -80,16 +79,20 @@ class Repo():
         return self.as_line()
 
 
-class ReposFile():
-    def __init__(self, filename):
-        self._filename = filename
+class ReposFile(object):
+    def __init__(self, stored_file):
+        self._stored_file = stored_file
         self._repositories = [
             Repo.parse(line)
-            for line in _read_and_trim(filename)]
+            for line in _trim(stored_file.readlines())]
 
     def clone(self, folder):
         for repo in self._repositories:
             repo.clone(folder)
+
+    def fast_forward(self, folder):
+        for repo in self._repositories:
+            repo.fast_forward(folder)
 
     def add(self, repo):
         for existing in self._repositories:
@@ -99,19 +102,22 @@ class ReposFile():
 
     def save(self):
         lines = [repo.as_line()+'\n' for repo in self._repositories]
-        with open(self._filename, 'w') as f:
-            f.writelines(sorted(lines))
+        self._stored_file.writelines(sorted(lines))
 
 
-class RepoSet():
-    def __init__(self, name, folder, repositories_filename):
+class RepoSet(object):
+    def __init__(self, name, folder, stored_file):
         self._name = name
-        self._reposfile = ReposFile(repositories_filename)
+        self._reposfile = ReposFile(stored_file)
         self._folder = folder
 
     def clone(self):
         msg('CLONING SET {}'.format(self._name))
         self._reposfile.clone(self._folder)
+
+    def fast_forward(self):
+        msg('FAST FORWARD IN SET {}'.format(self._name))
+        self._reposfile.fast_forward(self._folder)
 
     def add_and_clone(self, repository, prefix):
         msg('IN SET {}'.format(self._name))
