@@ -4,20 +4,19 @@ Clones sets of git repositories.
 
 Example config
 --------------
-~/.plit/config.yaml
+~/.plit/sets.cfg
 *******************
-.. code-block:: yaml
+.. code-block:: cfg
 
-  sets:
-  - name: work-common
-    folder: ~/repos/work/
-    repositories: ~/work/common.repositories
-  - name: work-team
-    folder: ~/repos/work/
-    repositories: ~/work/myteam.repositories
-  - name: private
-    folder: ~/repos/private/
-    repositories: ~/somecool.repositories
+  [work-common]
+  folder: ~/repos/work/
+  repositories: ~/work/common.repositories
+  [work-team]
+  folder: ~/repos/work/
+  repositories: ~/work/myteam.repositories
+  [private]
+  folder: ~/repos/private/
+  repositories: ~/somecool.repositories
 
 ~/somecool.repositories
 ***********************

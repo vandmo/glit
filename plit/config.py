@@ -1,6 +1,5 @@
 import os
-from collections import OrderedDict
-from yamlutils import load_yaml, save_as_yaml
+from ConfigParser import ConfigParser
 from repo import RepoSet
 from utils import errordie
 
@@ -8,22 +7,19 @@ from utils import errordie
 ERROR_1 = 'Can not figure out set name from filename {}'
 
 
-def _repo_set(config):
+def _repo_set(name, items):
     return RepoSet(
-        name=config['name'],
-        folder=os.path.expanduser(config['folder']),
-        repositories_filename=os.path.expanduser(config['repositories']))
+        name=name,
+        folder=os.path.expanduser(items['folder']),
+        repositories_filename=os.path.expanduser(items['repositories']))
 
 
 class Config():
     def __init__(self):
-        self._filename = os.path.expanduser('~/.plit/config.yaml')
+        self._filename = os.path.expanduser('~/.plit/sets')
+        self._config = ConfigParser()
         if os.path.isfile(self._filename):
-            self._config = load_yaml(self._filename)
-            if not self._config:
-                self._config = OrderedDict()
-        else:
-            self._config = OrderedDict()
+            self._config.read(self._filename)
 
     def get_set_or_die(self, name):
         return self.get_set(name) or errordie('No such set "{}"'.format(name))
@@ -31,26 +27,19 @@ class Config():
     def get_set(self, name):
         set_config = self._set_config_for(name)
         if set_config:
-            return _repo_set(set_config)
+            return _repo_set(name, set_config)
         return None
 
     def _set_config_for(self, name):
-        if 'sets' not in self._config:
+        if not self._config.has_section(name):
             return None
-        for set_config in self._config['sets']:
-            if name == set_config['name']:
-                return set_config
-        return None
+        return self._config.items(name)
 
     def get_all_sets(self):
-        if 'sets' not in self._config:
-            return []
-        return [_repo_set(set_config) for set_config in self._config['sets']]
-
-    def _sets_or_create(self):
-        if 'sets' not in self._config:
-            self._config['sets'] = list()
-        return self._config['sets']
+        return [
+            _repo_set(set_name, self._config.items(set_name))
+            for set_name in self._config.sections()
+        ]
 
     def add_set(self, repositories_file, folder, name=None):
         if not name:
@@ -59,9 +48,9 @@ class Config():
             name = os.path.basename(repositories_file)[:-13]
         if self._set_config_for(name):
             errordie('Set "{}" already exists'.format(name))
-        entry = OrderedDict()
-        entry['name'] = name
-        entry['folder'] = folder
-        entry['repositories'] = repositories_file
-        self._sets_or_create().append(entry)
-        save_as_yaml(self._config, self._filename)
+        if not self._config.has_section(name):
+            self._config.add_section(name)
+        self._config.set(name, 'folder', folder)
+        self._config.set(name, 'repositories', repositories_file)
+        with open(self._filename, 'wb') as configfile:
+            self._config.write(configfile)
