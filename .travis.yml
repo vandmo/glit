@@ -1,11 +1,11 @@
 language: python
 sudo: false
 python:
-  - "2.7"
+- '2.7'
 install:
-  - pip install flake8
+- pip install flake8
 script: flake8 .
-before_deploy: "echo ${TRAVIS_TAG} > VERSION"
+before_deploy: echo ${TRAVIS_TAG} > VERSION
 deploy:
   provider: pypi
   skip_cleanup: true
@@ -13,4 +13,4 @@ deploy:
     tags: true
   user: vandmo
   password:
-    secure: "iR2dVXSkDb2ijEbcCo2ISmpc4xqxaB8qV/tPj9YQ1PK0IzSbPo/DIlHU+ZVX24w2Ih3hwhb/eKVeb8mn4SZ8qt+nz6DMZFx/edl9AN2Vg91w6i6S6yCJ3BnbLTnjlFxjNcyvtRoX9ok87I6oQtsJEPDKF5N2WvFy984l4Q7MUvRgfg8foyEMooueNnc812G0zFCWwDXvKxN8P1zMhl87qzD3oFhGNn7p28f6DUEXYcWbnx8xEjvfBUj56DqZ0nR7EW1rIIukbu7Dxr3bQzyDatJLDHQhDFe8LWJAJubVEFLEhfe+bqgEjTXr1TN9WW8WE4Wkp1E9tv7ny4jwnildmZdMQJ6bpdNcAcZ1EG+Aq/ImmP7UCKDAmvRKUKMxDrs54hEFOGjTcNvsWfRhF7p53rsPbikHRtLI0hTyCw0FYeScHzYXiPi8tq3ooaiTjbJSgQXnMbjXDFp4L4vIR1LlVTnJsY6SCo3Rafk91HfQOpYZKQU5kjsbFR5q9SmgKhPIrvrdWh33E6JYRe5JHVEgFzD576P7lYe3Xq7yZ1MIQkO/46BaC+L7W1TNeWckvLXQozzGTcYtCvqJMCr8FZnC8+qDIyRZ3JBpnOGTSoxtQ/1xvzpznuyJI7JG6dEmWmcdokNx2Wyy6zhZSwcFX+tvxIrhRPL1OCrp/ArRrMJ3v0M="
+    secure: ON1d2hkqB5H5z6+XiNNUqSYe908dPskQYcbQQXCSaKTq8RpcFPhA3lVr34kMul09zOpDk/xY243uAFuu40oAzcHlqKAC+Q+PjRTNvXoOXEdI16TmyPB15Vp0gEjD8OnBn8CD19VhPl5KC5EbPKnHJW/Te0egHCowk2kAxV7J7MMP3wNATGjKt/eFTLIKTkQ/L7nwlmrDRVz3YwBnTpLz4z1rn5VXEnvgu3jRBbuFh857Q5nbwLnJVSR2jzcGDfvRaZ2aVk3OUpReOSzY1poEe7r/XD4eZVWAviNKiOAKwWB+1PN7IUD73UNzfYzwhROTBjXbYezHP3/K3WWNAlLjxUoPKHTHmmZ1a5muui8Iofxvb55jWLOKaRquUjQex1Xd8aOdq1k6pwQxUFP9K/TNI8EupAndnsKLxeB0ojgbO2DaYFF6dqehS8wP+/m/NN8qjuc0iCUHkOOSA0cm6KZJo9wElgW2cXX9aVte2hDbnmIiD3v2+BQr5CdqWRfRB0V08i6HKLtmS8hIGurrjKy5jwShZCeKRD4QedpcMm94k9jyImUrlKNoUTcQSPgh95lnnu8OG7zOQF9Ut7oX75asXp3eiR4u6FkmW+ecB/qRzB2aNB8oF6lKfxEfs4MFaySeYFjfaRHek8saqag4O6PdBAjIsfIQAZymklWJKS0C/78=
