@@ -1,6 +1,6 @@
 from . import git
 import os
-import urllib
+from urllib.parse import quote_plus
 from .utils import msg
 
 
@@ -14,7 +14,7 @@ class GitStoredFile(object):
     def __init__(self, repository, filename):
         self._repository = repository
         self._relative_filename = filename
-        cache_name = urllib.quote_plus(repository)
+        cache_name = quote_plus(repository)
         self._local_location = os.path.join(_CACHE_FOLDER, cache_name)
         self._full_filename = os.path.join(self._local_location, filename)
 
