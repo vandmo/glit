@@ -1,5 +1,5 @@
 import subprocess
-from utils import errordie
+from .utils import errordie
 
 
 def _call_or_die(args, cwd=None):

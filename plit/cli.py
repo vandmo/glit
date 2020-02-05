@@ -1,10 +1,10 @@
 import click
 
-import all_command
-import clone_command
-import clone_all_command
-import clone_set_command
-import config_command
+from . import all_command
+from . import clone_command
+from . import clone_all_command
+from . import clone_set_command
+from . import config_command
 
 
 @click.group()

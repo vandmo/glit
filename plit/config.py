@@ -1,9 +1,9 @@
 import os
-from ConfigParser import ConfigParser
-from repo import RepoSet
-import gitstorage
-import localstorage
-from utils import errordie
+from configparser import ConfigParser
+from .repo import RepoSet
+from . import gitstorage
+from . import localstorage
+from .utils import errordie
 
 
 ERROR_1 = 'Can not figure out set name from filename {}'

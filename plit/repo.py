@@ -1,6 +1,6 @@
-import git
+from . import git
 import os
-from utils import errordie, mkpath, msg
+from .utils import errordie, mkpath, msg
 
 
 def _trim(lines):

@@ -1,7 +1,7 @@
-import git
+from . import git
 import os
 import urllib
-from utils import msg
+from .utils import msg
 
 
 _CACHE_FOLDER = os.path.expanduser('~/.plit/cache/git/')
