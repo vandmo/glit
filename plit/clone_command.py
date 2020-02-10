@@ -7,8 +7,9 @@ import click
 @click.option(
     '--to-set',
     required=True,
+    prompt=True,
     help='The set to save the repository to')
-@click.option('--prefix')
+@click.option('--prefix', default='', prompt=True)
 def command(repository, to_set, prefix):
     '''Clones a repository and adds it to a set'''
     config = Config()
