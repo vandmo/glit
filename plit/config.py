@@ -50,10 +50,13 @@ class Config():
         else:
             errordie(ERROR_2.format(storage))
 
+    def get_set_names(self):
+        return self._config.sections()
+
     def get_all_sets(self):
         return [
             self._repo_set(set_name)
-            for set_name in self._config.sections()
+            for set_name in self.get_set_names()
         ]
 
     def _get_existing_set(self, name, filename):
@@ -89,3 +92,6 @@ class Config():
     def _save(self):
         with open(self._filename, 'wb') as configfile:
             self._config.write(configfile)
+
+
+config = Config()
