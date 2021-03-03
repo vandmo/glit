@@ -7,9 +7,9 @@ with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 setup(
-    name='plit',
+    name='glit',
     version=version,
-    url='https://github.com/vandmo/plit',
+    url='https://github.com/vandmo/glit',
     license='Apache License 2.0',
     author='vandmo',
     author_email='mikael@vandmo.se',
@@ -22,7 +22,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        plit=plit.cli:cli
+        glit=glit.cli:cli
     ''',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
