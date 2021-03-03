@@ -14,7 +14,7 @@ ERROR_4 = 'No such file "{}" in "{}"'
 
 class Config():
     def __init__(self):
-        self._filename = os.path.expanduser('~/.plit/sets')
+        self._filename = os.path.expanduser('~/.glit/sets')
         self._config = ConfigParser()
         if os.path.isfile(self._filename):
             self._config.read(self._filename)

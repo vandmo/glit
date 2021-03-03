@@ -4,7 +4,7 @@ from urllib.parse import quote_plus
 from .utils import msg
 
 
-_CACHE_FOLDER = os.path.expanduser('~/.plit/cache/git/')
+_CACHE_FOLDER = os.path.expanduser('~/.glit/cache/git/')
 
 
 _already_pulled = set()
@@ -33,7 +33,7 @@ class GitStoredFile(object):
         git.commit_or_die(
             repository=self._local_location,
             filename=self._relative_filename,
-            message='Updated by plit')
+            message='Updated by glit')
         git.push_or_die(self._local_location)
 
     def exists(self):

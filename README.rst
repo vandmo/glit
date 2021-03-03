@@ -49,14 +49,14 @@ Example config
 ***********************
 ::
 
-  . git@github.com:vandmo/plit.git
+  . git@github.com:vandmo/glit.git
   cool/libs https://github.com/pallets/click
   cool/libs https://github.com/awslabs/cfn-python-lint.git
 
 Commands
 --------
-- ``plit clone-all``
-- ``plit clone-set private``
-- ``plit clone --to-set private --prefix vandmo/python git@github.com:vandmo/plit.git``
-- ``plit config add-locally-stored-set --folder '~/repos/private/' '~/somecool.repositories'``
-- ``plit config add-git-stored-set --folder '~/repos/private/' git@github.com:vandmo/plit.git 'somereallycool.repositories'``
+- ``glit clone-all``
+- ``glit clone-set private``
+- ``glit clone --to-set private --prefix vandmo/python git@github.com:vandmo/glit.git``
+- ``glit config add-locally-stored-set --folder '~/repos/private/' '~/somecool.repositories'``
+- ``glit config add-git-stored-set --folder '~/repos/private/' git@github.com:vandmo/glit.git 'somereallycool.repositories'``
